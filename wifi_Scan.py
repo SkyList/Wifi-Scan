@@ -1,4 +1,7 @@
 import re
+import os
+
+os.system('iwlist interface_de_rede_wifi scanning > res.txt');
 
 '''
 ipconfig = subprocess.Popen(['netsh', 'wlan', 'show', 'networks','mode=bssid'],stdout=subprocess.PIPE,)
