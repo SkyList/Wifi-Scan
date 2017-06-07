@@ -2,6 +2,9 @@ import re
 import os
 import time
 
+interface = ''
+tempo = 60
+
 #METODO QUE RETORNA O VALOR EM PORCENTAGEM, NA BASE 70
 def calculateQualityPercent( quality ):
     number = int(str(quality))
@@ -10,9 +13,9 @@ def calculateQualityPercent( quality ):
 b=0
 while(b < 10):
     #PEGA  AS SAIDAS DO TERMINAL E JOGA EM UM ARQUIVO DE TEXTO
-    #os.system('iwlist '+ interface+' scanning > res.txt')
+    os.system('iwlist %s scanning > res.txt' % interface)
     
-    #LÊ O ARQUIVO E ARMAZENA O TEXTO EM UMA LISTA
+    #LE O ARQUIVO E ARMAZENA O TEXTO EM UMA LISTA
     arq = open('res.txt', 'r')
     list = arq.readlines()
     
@@ -30,7 +33,7 @@ while(b < 10):
     nElem = len(ssid);
     while(x < nElem):
         print('nome - ' + ssid[x][1])
-        print('endereço - ' + address[x][1])
+        print('endereco - ' + address[x][1])
         print('qualidade - ' + quality[x].split('=')[1]) 
         print('nivel - ' + level[x].split('=')[1])
         print('canal - ' + channel[x].split(':')[1])
@@ -41,4 +44,4 @@ while(b < 10):
 
     b+=1
     # A CADA UM MINUTO REFAZ TODO O PROCESSO
-    time.sleep(5);
+    time.sleep(tempo);
