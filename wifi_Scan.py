@@ -1,23 +1,26 @@
+#https://sourceforge.net/projects/mysql-python/files/mysql-python-test/1.2.4b4/
+
 import re
 import os
 import time
+import MySQLdb
 
-interface = ''
-tempo = 60
+interface = 'wlxc83a35c8d61a';
+tempo = 5;
 
 #METODO QUE RETORNA O VALOR EM PORCENTAGEM, NA BASE 70
 def calculateQualityPercent( quality ):
-    number = int(str(quality))
-    return (number * 100)/70
+    number = int(str(quality));
+    return (number * 100)/70;
 
 b=0
 while(b < 10):
     #PEGA  AS SAIDAS DO TERMINAL E JOGA EM UM ARQUIVO DE TEXTO
-    os.system('iwlist %s scanning > res.txt' % interface)
+    os.system('iwlist %s scanning > res.txt' % interface);
     
     #LE O ARQUIVO E ARMAZENA O TEXTO EM UMA LISTA
-    arq = open('res.txt', 'r')
-    list = arq.readlines()
+    arq = open('res.txt', 'r');
+    list = arq.readlines();
     
     #SEPARA A LEITURA FEITA DO ARQUIVO COM REGEX EM VARIAS LISTAS 
     ssid        = re.findall( r'(ESSID:")([A-z0-9\s]*)' , str(list) );
@@ -32,16 +35,16 @@ while(b < 10):
     x=0
     nElem = len(ssid);
     while(x < nElem):
-        print('nome - ' + ssid[x][1])
-        print('endereco - ' + address[x][1])
-        print('qualidade - ' + quality[x].split('=')[1]) 
-        print('nivel - ' + level[x].split('=')[1])
-        print('canal - ' + channel[x].split(':')[1])
-        print('frequencia - ' + frequency[x].split(':')[1])
-        print('last beacon - ' + lastBeacon[x].split(':')[1])
-        print()
-        x+=1
+        print('nome - ' + ssid[x][1]);
+        print('endereco - ' + address[x][1]);
+        print('qualidade - ' + quality[x].split('=')[1]) ;
+        print('nivel - ' + level[x].split('=')[1]);
+        print('canal - ' + channel[x].split(':')[1]);
+        print('frequencia - ' + frequency[x].split(':')[1]);
+        print('last beacon - ' + lastBeacon[x].split(':')[1]);
+        print();
+        x+=1;
 
-    b+=1
+    b+=1;
     # A CADA UM MINUTO REFAZ TODO O PROCESSO
     time.sleep(tempo);
