@@ -41,4 +41,4 @@ while(b < 10):
 
     b+=1
     # A CADA UM MINUTO REFAZ TODO O PROCESSO
-    time.sleep(1);
+    time.sleep(5);
