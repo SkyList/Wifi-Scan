@@ -1,11 +1,5 @@
 import time
 
-def hello():
-    print("hello")
-
-time.sleep(5)
-hello()
-time.sleep(5)
-hello()
-time.sleep(5)
-hello()
+print ("Start :" + time.ctime() )
+time.sleep( 5 )
+print ("End : " + time.ctime() )
