@@ -7,19 +7,14 @@ def calculateQualityPercent( quality ):
     number = int(str(quality))
     return (number * 100)/70
 
-#LÊ O ARQUIVO E ARMAZENA O TEXTO EM UMA LISTA
-def fileHandler():
-    arq = open( 'res.txt', 'r');
-    list = arq.readlines();
-
-#PEGA  AS SAIDAS DO TERMINAL E JOGA EM UM ARQUIVO DE TEXTO
-def callCmd( interface ):
-    os.system('iwlist '+ interface+' scanning > res.txt');
-
-
-while(True):
-    #callCmd( 'Nome da interface' );
-    fileHandler();
+b=0
+while(b < 10):
+    #PEGA  AS SAIDAS DO TERMINAL E JOGA EM UM ARQUIVO DE TEXTO
+    #os.system('iwlist '+ interface+' scanning > res.txt')
+    
+    #LÊ O ARQUIVO E ARMAZENA O TEXTO EM UMA LISTA
+    arq = open('res.txt', 'r')
+    list = arq.readlines()
     
     #SEPARA A LEITURA FEITA DO ARQUIVO COM REGEX EM VARIAS LISTAS 
     ssid        = re.findall( r'(ESSID:")([A-z0-9\s]*)' , str(list) );
@@ -44,5 +39,6 @@ while(True):
         print()
         x+=1
 
+    b+=1
     # A CADA UM MINUTO REFAZ TODO O PROCESSO
-    time.sleep(60);
+    time.sleep(1);
