@@ -20,7 +20,7 @@ def calculateQualityPercent( quality ):
 b=0
 while(b < 10):
     #PEGA  AS SAIDAS DO TERMINAL E JOGA EM UM ARQUIVO DE TEXTO
-    os.system('iwlist %s scanning > res.txt' % interface);
+    os.system('iwlist '+interface+' scanning > res.txt');
     
     #LE O ARQUIVO E ARMAZENA O TEXTO EM UMA LISTA
     arq = open('res.txt', 'r');
