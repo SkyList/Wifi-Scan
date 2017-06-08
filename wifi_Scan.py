@@ -12,6 +12,7 @@ def pushDB( ssid, address, quality, level, channel, frequency, lastBeacon ):
     con = MySQLdb.connect(host="192.168.0.62", user='root', passwd="1", db="wifiscan");
     cursor = con.cursor();
     cursor.execute("INSERT INTO `wifiscan`.`scan` (`SSID`, `MAC`, `QUALITY`, `SIGNAL`, `CHANNEL`, `FREQUENCY`, `BEACON`) VALUES (%s, %s, %s, %s, %s, %s, %s);" % (ssid, address, quality, level, channel, frequency, lastBeacon));
+    con.commit()
 
 #METODO QUE RETORNA O VALOR EM PORCENTAGEM, NA BASE 70
 def calculateQualityPercent( quality ):
@@ -44,6 +45,15 @@ while(b < 10):
     x=0
     nElem = len(ssid);
     while(x < nElem):
+
+        s  = ssid[x][1]
+        a  = address[x][1]
+        q  = quality[x].split('=')[1]
+        n  = level[x].split('=')[1]
+        c  = channel[x].split(':')[1]
+        f  = frequency[x].split(':')[1]
+        lb = lastBeacon[x].split(':')[1]
+
         print('nome - ' + ssid[x][1]);
         print('endereco - ' + address[x][1]);
         print('qualidade - ' + quality[x].split('=')[1]) ;
@@ -53,7 +63,7 @@ while(b < 10):
         print('last beacon - ' + lastBeacon[x].split(':')[1]);
         print();
 
-        pushDB( ssid[x][1], address[x][1], quality[x].split('=')[1], level[x].split('=')[1], channel[x].split(':')[1], frequency[x].split(':')[1], lastBeacon[x].split(':')[1] );
+        #pushDB(  );
         x+=1;
 
     b+=1;
