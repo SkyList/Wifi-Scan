@@ -4,7 +4,7 @@ import time
 import MySQLdb
 
 interface = 'wlxc83a35c8d61a';
-tempo = 1;
+tempo = 60;
 
 def pushDB( ssid, address, quality, level, channel, frequency, lastBeacon ):   
     con = MySQLdb.connect(host="192.168.0.62", user='root', passwd="1", db="wifiscan");
