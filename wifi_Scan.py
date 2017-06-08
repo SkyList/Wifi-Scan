@@ -6,12 +6,12 @@ import time
 import MySQLdb
 
 interface = 'wlxc83a35c8d61a';
-tempo = 5;
+tempo = 1;
 
 def pushDB( ssid, address, quality, level, channel, frequency, lastBeacon ):   
     con = MySQLdb.connect(host="192.168.0.62", user='root', passwd="1", db="wifiscan");
     cursor = con.cursor();
-    cursor.execute("INSERT INTO `wifiscan`.`scan` (`SSID`, `MAC`, `QUALITY`, `SIGNAL`, `CHANNEL`, `FREQUENCY`, `BEACON`) VALUES (%s, %s, %s, %s, %s, %s, %s);" % (ssid, address, quality, level, channel, frequency, lastBeacon));
+    cursor.execute("INSERT INTO `wifiscan`.`scan` (`SSID`, `MAC`, `QUALITY`, `SIGNAL`, `CHANNEL`, `FREQUENCY`, `BEACON`) VALUES ('"+ssid+"','"+address+"',"+quality+","+level+","+channel+","+frequency+","+lastBeacon+")");
     con.commit()
 
 #METODO QUE RETORNA O VALOR EM PORCENTAGEM, NA BASE 70
@@ -37,10 +37,6 @@ while(b < 10):
     frequency   = re.findall( r'(Frequency:[0-9]*.[0-9]?[0-9]?[0-9]?)' , str(list) );
     lastBeacon  = re.findall( r'(beacon: [0-9]*)' , str(list) );
 
-
-
-
-
     #APRESENTA OS VALORES NA TELA, MAS PODE SER USADO PARA MONTAR O COMANDO SQL E ENVIAR PARA O SERVIDOR
     x=0
     nElem = len(ssid);
@@ -63,7 +59,7 @@ while(b < 10):
         print('last beacon - ' + lastBeacon[x].split(':')[1]);
         print();
 
-        #pushDB(  );
+        pushDB( s, a, q, n, c, f, lb );
         x+=1;
 
     b+=1;
