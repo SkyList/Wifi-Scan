@@ -12,6 +12,7 @@ def pushDB( ssid, address, quality, level, channel, frequency, lastBeacon ):
     cursor.execute("INSERT INTO `wifiscan`.`scan` (`SSID`, `MAC`, `QUALITY`, `SIGNAL`, `CHANNEL`, `FREQUENCY`, `BEACON`) VALUES ('"+ssid+"','"+address+"',"+quality+","+level+","+channel+","+frequency+","+lastBeacon+")");
     con.commit()
 
+
 #METODO QUE RETORNA O VALOR EM PORCENTAGEM, NA BASE 70
 def calculateQualityPercent( quality ):
     number = int(str(quality));
