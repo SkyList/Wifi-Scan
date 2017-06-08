@@ -6,6 +6,7 @@ import MySQLdb
 interface = 'wlxc83a35c8d61a';
 tempo = 60;
 
+#INSERE DADO NO BANCO
 def pushDB( ssid, address, quality, level, channel, frequency, lastBeacon ):   
     con = MySQLdb.connect(host="192.168.0.62", user='root', passwd="1", db="wifiscan");
     cursor = con.cursor();
@@ -21,7 +22,7 @@ def calculateQualityPercent( quality ):
 b=0
 while(b < 10):
     #PEGA  AS SAIDAS DO TERMINAL E JOGA EM UM ARQUIVO DE TEXTO
-    os.system('iwlist '+interface+' scanning > res.txt');
+    os.system('iwlist %S scanning > res.txt' % interface);
     
     #LE O ARQUIVO E ARMAZENA O TEXTO EM UMA LISTA
     arq = open('res.txt', 'r');
