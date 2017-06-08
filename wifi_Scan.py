@@ -8,6 +8,11 @@ import MySQLdb
 interface = 'wlxc83a35c8d61a';
 tempo = 5;
 
+def pushDB( ssid, address, quality, level, channel, frequency, lastBeacon ):   
+    con = MySQLdb.connect(host="192.168.0.62", user='root', passwd="1", db="wifiscan");
+    cursor = con.cursor();
+    cursor.execute("INSERT INTO `wifiscan`.`scan` (`SSID`, `MAC`, `QUALITY`, `SIGNAL`, `CHANNEL`, `FREQUENCY`, `BEACON`) VALUES (%s, %s, %s, %s, %s, %s, %s);" % (ssid, address, quality, level, channel, frequency, lastBeacon));
+
 #METODO QUE RETORNA O VALOR EM PORCENTAGEM, NA BASE 70
 def calculateQualityPercent( quality ):
     number = int(str(quality));
@@ -16,7 +21,7 @@ def calculateQualityPercent( quality ):
 b=0
 while(b < 10):
     #PEGA  AS SAIDAS DO TERMINAL E JOGA EM UM ARQUIVO DE TEXTO
-    os.system('iwlist %s scanning > res.txt' % interface);
+    #os.system('iwlist %s scanning > res.txt' % interface);
     
     #LE O ARQUIVO E ARMAZENA O TEXTO EM UMA LISTA
     arq = open('res.txt', 'r');
@@ -31,6 +36,10 @@ while(b < 10):
     frequency   = re.findall( r'(Frequency:[0-9]*.[0-9]?[0-9]?[0-9]?)' , str(list) );
     lastBeacon  = re.findall( r'(beacon: [0-9]*)' , str(list) );
 
+
+
+
+
     #APRESENTA OS VALORES NA TELA, MAS PODE SER USADO PARA MONTAR O COMANDO SQL E ENVIAR PARA O SERVIDOR
     x=0
     nElem = len(ssid);
@@ -43,6 +52,8 @@ while(b < 10):
         print('frequencia - ' + frequency[x].split(':')[1]);
         print('last beacon - ' + lastBeacon[x].split(':')[1]);
         print();
+
+        pushDB( ssid[x][1], address[x][1], quality[x].split('=')[1], level[x].split('=')[1], channel[x].split(':')[1], frequency[x].split(':')[1], lastBeacon[x].split(':')[1] );
         x+=1;
 
     b+=1;
